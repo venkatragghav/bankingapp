@@ -209,3 +209,12 @@ export const authFormSchema = (type: string) => z.object({
   email: z.string().email(),
   password: z.string().min(8),
 })
+import { Control, FieldPath } from "react-hook-form"
+
+interface CustomInputProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: Control<any>
+  name: string
+  label: string
+  placeholder: string
+}
