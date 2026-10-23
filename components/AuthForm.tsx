@@ -23,6 +23,7 @@ import CustomInput from './CustomInput'
 import { authFormSchema } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import PlaidLink from './PlaidLink'
 
 
 const AuthForm = ({ type }: { type: string }) => {
@@ -95,7 +96,12 @@ const form = useForm<z.infer<typeof schema>>({
             
         </header>
         {user?(
-        <div className='flex flex-col'></div>):
+        <div className='flex flex-col'>
+          <PlaidLink user={user} variant="primary"/>
+        </div>
+        
+        ):
+
         
         (<>
             <Form {...form}>
@@ -131,7 +137,7 @@ const form = useForm<z.infer<typeof schema>>({
                     
                     </>)}
                     <CustomInput control={form.control} name="email" label="Email" placeholder="enter your email" />
-                    <CustomInput control={form.control} name="password" label="Password" placeholder="enter your password" />
+                    <CustomInput control={form.control} name="password" label="Password"  placeholder="enter your password" />
                     <div className='flex flex-col gap-4'>
                     <Button type="submit" className="form-btn">{isLoading?(<><Loader2 size={20} className='animate-spin'/>&nbsp; 
                                 Loading...</>):type=='sign-in'? 'sign in':'sign up'}</Button>

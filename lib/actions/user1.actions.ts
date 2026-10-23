@@ -70,9 +70,9 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
     if (!newUserAccount) throw new Error('Error creating user')
 
     // TODO: re-enable when the tutor reaches Dwolla
-    // const dwollaCustomerUrl = await createDwollaCustomer({ ...userData, type: 'personal' })
-    // if (!dwollaCustomerUrl) throw new Error('Error creating Dwolla customer')
-    // const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
+    const dwollaCustomerUrl = await createDwollaCustomer({ ...userData, type: 'personal' })
+    if (!dwollaCustomerUrl) throw new Error('Error creating Dwolla customer')
+    const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
         const userDoc = {
       ...userData,
       userId: newUserAccount.$id,
@@ -129,6 +129,7 @@ export const logoutAccount = async () => {
 
 export const createLinkToken = async (user: User) => {
   try {
+    if (!user) { throw new Error("User is null. Cannot create Plaid link token."); }
     const tokenParams = {
       user: {
         client_user_id: user.$id
